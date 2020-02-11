@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(simulation main.cpp src/simulation.cpp headers/simulation.hpp headers/UIState.hpp src/GUIState.cpp headers/GUIState.hpp)
+add_executable(simulation main.cpp src/simulation.cpp headers/simulation.hpp headers/UIState.hpp src/GUIState.cpp headers/GUIState.hpp src/World.cpp headers/World.hpp src/Field.cpp headers/Field.hpp headers/FieldGenStrategy.hpp)
 target_link_libraries(simulation ${SDL2_LIBRARIES})

@@ -9,7 +9,8 @@
 class GUIState: public UIState {
 public:
     GUIState(std::string windowName = "Sim", const int width = 640, const int height = 360, const int tileSize = 40);
-    void updateUI() override;
+    int updateUI(SDL_Event event) override;
+    int input();
     ~GUIState();
 private:
     SDL_Window* window;

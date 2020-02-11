@@ -1,7 +1,6 @@
 #include <stdexcept>
+#include <iostream>
 #include "../headers/GUIState.hpp"
-//#include <SDL2/SDL_render.h>
-//#include <SDL2/SDL_video.h>
 GUIState::GUIState(std::string windowName, const int width, const int height, const int tileSize): UIState() {
     if(SDL_Init(SDL_INIT_VIDEO) != 0){
         throw std::runtime_error("SDL_Init failed");
@@ -12,7 +11,7 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             width,
-            height,
+            height + 20,
             SDL_WINDOW_SHOWN
             );
     if(0 == window){
@@ -34,18 +33,52 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
             tiles[i].push_back(rect);
             SDL_SetRenderDrawColor(renderer, 0, 128, 0, 0);
             SDL_RenderFillRect(renderer, &rect);
-            SDL_RenderPresent(renderer);
         }
     }
+    SDL_RenderPresent(renderer);
 }
 
-void GUIState::updateUI() {
-
+int GUIState::updateUI(SDL_Event event) {
+    if(event.window.event == SDL_WINDOWEVENT_CLOSE){
+        return -1;
+    }
+    std::cout << "update" << std::endl;
 }
 
 GUIState::~GUIState() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+}
+
+int GUIState::input() {
+    int steps = 0;
+    SDL_Event keyEvent;
+    while(SDL_WaitEvent(&keyEvent)){
+        if(keyEvent.window.event == SDL_WINDOWEVENT_CLOSE){
+            return -1;
+        }
+        if(keyEvent.type == SDL_KEYUP){
+            if(keyEvent.key.keysym.sym == SDLK_RETURN){
+                break;
+            }
+            int digit = *SDL_GetKeyName(keyEvent.key.keysym.sym) - '0';
+            if(digit >= 0 && digit <= 9){
+                if(steps == 0){
+                    steps += digit;
+                } else {
+                    steps *= 10;
+                    steps += digit;
+                }
+            }
+            if(keyEvent.key.keysym.sym == SDLK_BACKSPACE){
+                if(steps > 0){
+                    steps /= 10;
+                }
+            }
+        }
+        std::cout << steps << std::endl;
+    }
+    return steps;
 }
 
 
