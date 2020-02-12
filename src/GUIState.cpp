@@ -41,6 +41,7 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
 int GUIState::updateUI(WorldInfo info) {
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
     SDL_RenderClear(renderer);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     for(int i = 0; i < tiles.size(); i++){
         for(int j = 0; j < tiles[i].size(); j++){
             int colorDensity = info[0][i][j].first;
