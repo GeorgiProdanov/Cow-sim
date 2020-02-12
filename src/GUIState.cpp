@@ -11,7 +11,7 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             width,
-            height + 20,
+            height,
             SDL_WINDOW_SHOWN
             );
     if(0 == window){
@@ -31,18 +31,25 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
         for(int j = 0; j < horizontalTiles; j++){
             SDL_Rect rect = {tileSize*j, tileSize*i, tileSize, tileSize};
             tiles[i].push_back(rect);
-            SDL_SetRenderDrawColor(renderer, 0, 128, 0, 0);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderFillRect(renderer, &rect);
         }
     }
     SDL_RenderPresent(renderer);
 }
 
-int GUIState::updateUI(SDL_Event event) {
-    if(event.window.event == SDL_WINDOWEVENT_CLOSE){
-        return -1;
+int GUIState::updateUI(WorldInfo info) {
+    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
+    SDL_RenderClear(renderer);
+    for(int i = 0; i < tiles.size(); i++){
+        for(int j = 0; j < tiles[i].size(); j++){
+            int colorDensity = info[0][i][j].first;
+            SDL_SetRenderDrawColor(renderer, 0, 128, 0, colorDensity);
+            SDL_RenderFillRect(renderer, &tiles[i][j]);
+        }
     }
-    std::cout << "update" << std::endl;
+    SDL_RenderPresent(renderer);
+    return 0;
 }
 
 GUIState::~GUIState() {
@@ -50,7 +57,7 @@ GUIState::~GUIState() {
     SDL_DestroyWindow(window);
 }
 
-int GUIState::input() {
+unsigned int GUIState::input() {
     int steps = 0;
     SDL_Event keyEvent;
     while(SDL_WaitEvent(&keyEvent)){
@@ -75,8 +82,8 @@ int GUIState::input() {
                     steps /= 10;
                 }
             }
+            std::cout << steps << std::endl;
         }
-        std::cout << steps << std::endl;
     }
     return steps;
 }

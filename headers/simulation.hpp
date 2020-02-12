@@ -8,7 +8,7 @@
 
 class Simulation {
 public:
-    Simulation(UIState* ui, int cbri = 20, int le = 200);
+    Simulation(UIState* ui);
     void run();
     UIState* getUIState();
     void setUIState(UIState* ui);

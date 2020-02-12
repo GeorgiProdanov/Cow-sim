@@ -1,24 +1,20 @@
 #include <zconf.h>
 #include <iostream>
 #include "../headers/simulation.hpp"
-
-Simulation::Simulation(UIState* ui, int cbri, int le): userInterface(ui), CBRI(cbri), LE(le) {
+#include "../headers/World.hpp"
+Simulation::Simulation(UIState* ui): userInterface(ui){
 }
 
 void Simulation::run() {
+    World world;
+    addWorld(world);
     while(true){
-        int stepsRemaining = userInterface->input();
+        unsigned int stepsRemaining = userInterface->input();
         while(stepsRemaining > 0){
             stepsRemaining--;
-            SDL_Event event;//TODO if event e kuvto trqa togaa update
-            SDL_WaitEvent(&event);
-            int quit = userInterface->updateUI(event);
-            if(quit < 0){
-                return;
+            for(World world : worlds){
+                userInterface->updateUI(world.update());
             }
-        }
-        if(stepsRemaining < 0){
-            break;
         }
     }
 }
