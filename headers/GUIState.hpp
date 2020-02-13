@@ -17,6 +17,7 @@ private:
     SDL_Renderer* renderer;
     std::vector<std::vector<SDL_Rect>> tiles;
     SDL_Texture* image;
+    int tileSize;
 };
 
 

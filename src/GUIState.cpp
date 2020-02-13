@@ -1,7 +1,10 @@
 #include <stdexcept>
 #include <iostream>
 #include "../headers/GUIState.hpp"
-GUIState::GUIState(std::string windowName, const int width, const int height, const int tileSize): UIState() {
+GUIState::GUIState(std::string windowName, const int width, const int height, const int tileSize): UIState(), tileSize(tileSize) {
+    if(tileSize < 0){
+        throw std::runtime_error("tileSize cannot be negative");
+    }
     if(SDL_Init(SDL_INIT_VIDEO) != 0){
         throw std::runtime_error("SDL_Init failed");
     }
@@ -46,13 +49,15 @@ int GUIState::updateUI(WorldInfo info) {
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    SDL_Rect imageRect = { 5, 5, 100, 100 };
-    SDL_RenderCopy(renderer, image, nullptr, &imageRect);
     for(int i = 0; i < tiles.size(); i++){
         for(int j = 0; j < tiles[i].size(); j++){
             int colorDensity = info[0][i][j].first;
             SDL_SetRenderDrawColor(renderer, 0, 128, 0, colorDensity);
             SDL_RenderFillRect(renderer, &tiles[i][j]);
+            if(info[0][i][j].second){
+                SDL_Rect imageRect = { j*tileSize, i*tileSize, tileSize, tileSize };
+                SDL_RenderCopy(renderer, image, nullptr, &imageRect);
+            }
         }
     }
     SDL_RenderPresent(renderer);

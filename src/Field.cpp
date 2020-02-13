@@ -26,7 +26,12 @@ fieldReport Field::update() {
         for(Tile* tile: vec){
             report.back().push_back(std::pair<int, bool>());
             report.back().back().first = tile->getFood();
-            report.back().back().second = false; //TODO add cows
+            report.back().back().second = false;
+            for(Animal* animal : animals){
+                if(animal->getTile() == tile){
+                    report.back().back().second = true;
+                }
+            }
         }
     }
 
