@@ -35,6 +35,10 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
             SDL_RenderFillRect(renderer, &rect);
         }
     }
+    SDL_Surface* surface = nullptr;
+    surface = SDL_LoadBMP("../cow.bmp");
+    image = SDL_CreateTextureFromSurface(renderer, surface);
+
     SDL_RenderPresent(renderer);
 }
 
@@ -42,6 +46,8 @@ int GUIState::updateUI(WorldInfo info) {
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_Rect imageRect = { 5, 5, 100, 100 };
+    SDL_RenderCopy(renderer, image, nullptr, &imageRect);
     for(int i = 0; i < tiles.size(); i++){
         for(int j = 0; j < tiles[i].size(); j++){
             int colorDensity = info[0][i][j].first;

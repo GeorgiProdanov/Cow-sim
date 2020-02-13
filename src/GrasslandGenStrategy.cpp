@@ -15,6 +15,6 @@ Field GrasslandGenStrategy::generateField(int width, int height, int cbri, int l
             tiles[i].push_back(grass);
         }
     }
-    Field newField(tiles);
+    Field newField(tiles, cbri, le);
     return newField;
 }

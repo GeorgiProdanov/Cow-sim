@@ -10,8 +10,13 @@ World::World() {
 
 WorldInfo World::update() {
     WorldInfo info;
-    for(auto field : fields){
-        info.push_back(field.update());
+/*    for(std::vector<Field>::iterator it = fields.begin(); it != fields.end(); ++it){
+        fieldReport report = (*it).update();
+        info.push_back(report);
+    }*/
+    for(int i = 0; i < fields.size(); i++){
+        fieldReport report = fields[i].update();
+        info.push_back(report);
     }
     return info;
 }
