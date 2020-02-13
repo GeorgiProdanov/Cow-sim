@@ -14,7 +14,7 @@ public:
     void addField(FieldGenStrategy* strategy, int width = 16, int height = 9, int cbri = 20, int le = 200);
 
 private:
-    std::vector<Field> fields;
+    std::vector<Field*> fields;
 
 };
 

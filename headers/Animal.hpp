@@ -2,6 +2,7 @@
 #define SIMULATION_ANIMAL_HPP
 
 
+#include <iostream>
 #include "Tile.hpp"
 #include "AnimalState.hpp"
 
@@ -13,7 +14,7 @@ protected:
     AnimalState* state;
 public:
     Animal();
-    virtual ~Animal() {}
+    virtual ~Animal() {std::cout << "Dead" <<std::endl;}
     virtual Tile* getTile() { return tile; }
     virtual void setTile(Tile* newTile){ tile = newTile;}
     virtual unsigned int* getAge() { return &age; }

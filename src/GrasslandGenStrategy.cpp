@@ -5,7 +5,7 @@ GrasslandGenStrategy::GrasslandGenStrategy() {
 
 }
 
-Field GrasslandGenStrategy::generateField(int width, int height, int cbri, int le){
+Field* GrasslandGenStrategy::generateField(int width, int height, int cbri, int le){
     std::vector<std::vector<Tile*>> tiles;
     int mod = 255/width;
     for(int i = 0; i < height; i++){
@@ -15,6 +15,6 @@ Field GrasslandGenStrategy::generateField(int width, int height, int cbri, int l
             tiles[i].push_back(grass);
         }
     }
-    Field newField(tiles, cbri, le);
+    Field* newField = new Field(tiles, cbri, le);
     return newField;
 }

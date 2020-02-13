@@ -12,6 +12,6 @@ void Animal::setState(AnimalState *newState) {
     this->state = newState;
 }
 
-Animal::Animal():age(0), state(nullptr) {
+Animal::Animal():age(0), state(nullptr), energy(0) {
 
 }

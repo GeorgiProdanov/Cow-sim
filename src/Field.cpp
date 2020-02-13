@@ -9,15 +9,11 @@ Field::Field(std::vector<std::vector<Tile*>> initTiles, int cbri, int le): tiles
 fieldReport Field::update() {
     if(CBRI_count == CBRI){
         Animal* newAnimal = farm.createAnimal("cow");
-        //newAnimal->getTile() = tiles[12][7];
+        newAnimal->setTile(tiles[7][12]);
         animals.push_back(newAnimal);
         CBRI_count = 0;
     }
-    Animal* newAnimal = farm.createAnimal("cow");
-    newAnimal->setTile(tiles[7][12]);
-    animals.push_back(newAnimal);
     CBRI_count++;
-    std::cout << CBRI_count <<std::endl;
     for(std::vector<Animal*>::iterator it = animals.begin(); it != animals.end(); ++it){
         if((*it)->act() == -1){
             delete (*it);
