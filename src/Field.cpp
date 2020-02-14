@@ -1,8 +1,9 @@
 #include "../headers/Field.hpp"
 #include "../headers/OneStepSearch.hpp"
+#include "../headers/TwoStepSearch.hpp"
 
 Field::Field(std::vector<std::vector<Tile*>> initTiles, int cbri, int le): tiles(initTiles), LE(le), CBRI(cbri),
-    height(initTiles.size()), width(initTiles.at(0).size()), CBRI_count(cbri - 1), LE_count(0){
+    height(initTiles.size()), width(initTiles.at(0).size()), CBRI_count(cbri - 1){
     std::srand(time(NULL));
 }
 
@@ -21,12 +22,17 @@ fieldReport Field::update() {
     }
     CBRI_count++;
     for(std::vector<Animal*>::iterator it = animals.begin(); it != animals.end(); ){
+        *(*it)->getAge() += 1;
+        if(*(*it)->getAge() == LE/4){
+            (*it)->setSearchStrategy(new TwoStepSearch(&tiles));
+        }
         if((*it)->act() == -1){
             delete (*it);
             it = animals.erase(it);
         } else {
             ++it;
         }
+
     }
     report = generateReport();
     return report;
@@ -44,9 +50,7 @@ Tile *Field::findSpawn() {
     if(fertileTiles.size() < 1){
         return nullptr;
     }
-    unsigned int index = rand() % fertileTiles.size();\
-    std::cout << "Rand "
-                 "" << index << std::endl;
+    unsigned int index = rand() % fertileTiles.size();
     return fertileTiles[index];
 }
 

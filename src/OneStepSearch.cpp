@@ -35,7 +35,6 @@ Tile *OneStepSearch::search(Tile * current) {
                             moveTo = field->at(x - 1).at(y + i);
                         }
                     } catch(std::out_of_range e){}
-
                 }
                 return moveTo;
             }

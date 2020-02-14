@@ -8,6 +8,7 @@
 class SearchStrategy {
 public:
     SearchStrategy(std::vector<std::vector<Tile*>>* field): field(field){}
+    SearchStrategy(SearchStrategy &other): field(other.field) {}
     virtual ~SearchStrategy() {}
     virtual Tile* search(Tile* current) = 0;
 protected:

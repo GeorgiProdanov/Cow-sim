@@ -1,4 +1,5 @@
 #include "../headers/Animal.hpp"
+#include "../headers/TwoStepSearch.hpp"
 
 int Animal::act() {
     int result = state->act(this);

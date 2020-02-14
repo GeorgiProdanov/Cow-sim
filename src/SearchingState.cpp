@@ -15,7 +15,6 @@ int SearchingState::act(Animal* animal) {
     if(*animal->getEnergy() < 0 || *animal->getAge() > 200){
         return -1;//dead;
     }
-    *animal->getAge() += 1;
     animal->setTile(moveTo);
     return 0;
 }

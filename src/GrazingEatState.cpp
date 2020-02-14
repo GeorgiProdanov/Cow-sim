@@ -22,6 +22,5 @@ int GrazingEatState::act(Animal* animal) {
         *animal->getEnergy() += *animal->getAge() + 3;
         animal->getTile()->reduceFood(*animal->getAge() +3);
     }
-    *animal->getAge() += 1;
     return 0;
 }
