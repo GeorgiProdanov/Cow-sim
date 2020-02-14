@@ -9,7 +9,6 @@ class GrazingAnimalState: public AnimalState {
 public:
     GrazingAnimalState(): AnimalState() {}
     virtual ~GrazingAnimalState() {}
-    virtual int act(Animal* animal) = 0;
 };
 
 

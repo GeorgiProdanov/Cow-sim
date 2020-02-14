@@ -1,8 +1,8 @@
 #include "../headers/Animal.hpp"
 
 int Animal::act() {
-    state->act(this);
-    return 0;
+    int result = state->act(this);
+    return result;
 }
 
 void Animal::setState(AnimalState *newState) {
@@ -12,6 +12,21 @@ void Animal::setState(AnimalState *newState) {
     this->state = newState;
 }
 
-Animal::Animal():age(0), state(nullptr), energy(0) {
+Animal::Animal():age(0), state(nullptr), energy(0), searchStrategy(nullptr) {
 
+}
+
+Tile* Animal::search() {
+    return searchStrategy->search(tile);
+}
+
+void Animal::move(Tile *whereTo) {
+    tile = whereTo;
+}
+
+void Animal::setSearchStrategy(SearchStrategy *newStrategy) {
+    if(searchStrategy != nullptr){
+        delete searchStrategy;
+    }
+    searchStrategy = newStrategy;
 }

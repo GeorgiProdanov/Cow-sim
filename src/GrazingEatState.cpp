@@ -1,4 +1,5 @@
 #include "../headers/GrazingEatState.hpp"
+#include "../headers/SearchingState.hpp"
 
 GrazingEatState::GrazingEatState(): GrazingAnimalState() {
 
@@ -10,7 +11,8 @@ int GrazingEatState::act(Animal* animal) {
     }
 
     if(animal->getTile()->getFood() <= 0){
-        //TODO impl searchstate
+        animal->setState(new SearchingState());
+        return 0;
     }
 
     if(*animal->getAge() + 3 > animal->getTile()->getFood()){

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Tile.hpp"
 #include "AnimalState.hpp"
+#include "SearchStrategy.hpp"
 
 class Animal {
 protected:
@@ -12,6 +13,7 @@ protected:
     int energy;
     Tile* tile;
     AnimalState* state;
+    SearchStrategy* searchStrategy;
 public:
     Animal();
     virtual ~Animal() {std::cout << "Dead" <<std::endl;}
@@ -21,8 +23,9 @@ public:
     virtual int* getEnergy() { return &energy; }
     virtual void setState(AnimalState* newState);
     int act();
-
-
+    Tile* search();
+    void move(Tile* whereTo);
+    void setSearchStrategy(SearchStrategy* newStrategy);
 };
 
 

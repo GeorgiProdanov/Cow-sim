@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "../headers/Field.hpp"
+#include "../headers/OneStepSearch.hpp"
 
 Field::Field(std::vector<std::vector<Tile*>> initTiles, int cbri, int le): tiles(initTiles), LE(le), CBRI(cbri),
     height(initTiles.size()), width(initTiles.at(0).size()), CBRI_count(cbri - 1), LE_count(0){
@@ -10,14 +11,17 @@ fieldReport Field::update() {
     if(CBRI_count == CBRI){
         Animal* newAnimal = farm.createAnimal("cow");
         newAnimal->setTile(tiles[7][12]);
+        newAnimal->setSearchStrategy(new OneStepSearch(&tiles));
         animals.push_back(newAnimal);
         CBRI_count = 0;
     }
     CBRI_count++;
-    for(std::vector<Animal*>::iterator it = animals.begin(); it != animals.end(); ++it){
+    for(std::vector<Animal*>::iterator it = animals.begin(); it != animals.end(); ){
         if((*it)->act() == -1){
             delete (*it);
-            animals.erase(it);
+            it = animals.erase(it);
+        } else {
+            ++it;
         }
     }
     fieldReport report;
