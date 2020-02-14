@@ -1,4 +1,3 @@
-#include <zconf.h>
 #include <iostream>
 #include "../headers/simulation.hpp"
 #include "../headers/World.hpp"
@@ -13,7 +12,13 @@ void Simulation::run() {
         while(stepsRemaining > 0){
             stepsRemaining--;
             for(World world : worlds){
-                userInterface->updateUI(world.update());
+                WorldInfo info = world.update();
+                try{
+                    info.at(0).at(0);
+                }catch (std::out_of_range){
+                    return;
+                }
+                userInterface->updateUI(info);
             }
         }
     }

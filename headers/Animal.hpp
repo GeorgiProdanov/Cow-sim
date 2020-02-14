@@ -24,7 +24,6 @@ public:
     virtual void setState(AnimalState* newState);
     int act();
     Tile* search();
-    void move(Tile* whereTo);
     void setSearchStrategy(SearchStrategy* newStrategy);
 };
 

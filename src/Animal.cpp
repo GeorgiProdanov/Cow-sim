@@ -20,10 +20,6 @@ Tile* Animal::search() {
     return searchStrategy->search(tile);
 }
 
-void Animal::move(Tile *whereTo) {
-    tile = whereTo;
-}
-
 void Animal::setSearchStrategy(SearchStrategy *newStrategy) {
     if(searchStrategy != nullptr){
         delete searchStrategy;

@@ -16,6 +16,6 @@ int SearchingState::act(Animal* animal) {
         return -1;//dead;
     }
     *animal->getAge() += 1;
-    animal->move(moveTo);
+    animal->setTile(moveTo);
     return 0;
 }

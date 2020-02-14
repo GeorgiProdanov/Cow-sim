@@ -1,16 +1,20 @@
-
-#include <iostream>
 #include "../headers/Field.hpp"
 #include "../headers/OneStepSearch.hpp"
 
 Field::Field(std::vector<std::vector<Tile*>> initTiles, int cbri, int le): tiles(initTiles), LE(le), CBRI(cbri),
     height(initTiles.size()), width(initTiles.at(0).size()), CBRI_count(cbri - 1), LE_count(0){
+    std::srand(time(NULL));
 }
 
 fieldReport Field::update() {
+    fieldReport report;
     if(CBRI_count == CBRI){
         Animal* newAnimal = farm.createAnimal("cow");
-        newAnimal->setTile(tiles[7][12]);
+        Tile* spawnpoint = findSpawn();
+        if(spawnpoint == nullptr){
+            return report;
+        }
+        newAnimal->setTile(spawnpoint);
         newAnimal->setSearchStrategy(new OneStepSearch(&tiles));
         animals.push_back(newAnimal);
         CBRI_count = 0;
@@ -24,6 +28,29 @@ fieldReport Field::update() {
             ++it;
         }
     }
+    report = generateReport();
+    return report;
+}
+
+Tile *Field::findSpawn() {
+    std::vector<Tile*> fertileTiles;
+    for(std::vector<Tile*> vec : tiles){
+        for(Tile* tile : vec){
+            if(tile->getFood() > 0){
+                fertileTiles.push_back(tile);
+            }
+        }
+    }
+    if(fertileTiles.size() < 1){
+        return nullptr;
+    }
+    unsigned int index = rand() % fertileTiles.size();\
+    std::cout << "Rand "
+                 "" << index << std::endl;
+    return fertileTiles[index];
+}
+
+fieldReport Field::generateReport() {
     fieldReport report;
     for(std::vector<Tile*> vec : tiles){
         report.push_back(std::vector<std::pair<int, bool>>());
@@ -38,6 +65,5 @@ fieldReport Field::update() {
             }
         }
     }
-
     return report;
 }

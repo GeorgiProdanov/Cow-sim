@@ -24,6 +24,8 @@ private:
     int CBRI_count;
     unsigned int LE_count;
     int LE;
+    Tile* findSpawn();
+    fieldReport generateReport();
 };
 
 
