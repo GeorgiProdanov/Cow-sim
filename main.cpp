@@ -1,11 +1,11 @@
 
 
-#include "headers/GUIState.hpp"
+#include "headers/GUIStrategy.hpp"
 #include "headers/simulation.hpp"
 #include <thread>
 
 int main() {
-    Simulation sim(new GUIState("Cow sim", 640, 360));
+    Simulation sim(new GUIStrategy("Cow sim", 640, 360));
     sim.run();
     return 0;
 }

@@ -2,7 +2,6 @@
 #define SIMULATION_ANIMALSTATE_HPP
 
 
-//#include "Animal.hpp"
 
 class AnimalState {
 public:

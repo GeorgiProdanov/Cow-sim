@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <iostream>
-#include "../headers/GUIState.hpp"
-GUIState::GUIState(std::string windowName, const int width, const int height, const int tileSize): UIState(), tileSize(tileSize) {
+#include "../headers/GUIStrategy.hpp"
+GUIStrategy::GUIStrategy(std::string windowName, const int width, const int height, const int tileSize): UIStrategy(), tileSize(tileSize) {
     if(tileSize < 0){
         throw std::runtime_error("tileSize cannot be negative");
     }
@@ -45,7 +45,7 @@ GUIState::GUIState(std::string windowName, const int width, const int height, co
     SDL_RenderPresent(renderer);
 }
 
-int GUIState::updateUI(WorldInfo info) {
+int GUIStrategy::updateUI(WorldInfo info) {
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -64,12 +64,12 @@ int GUIState::updateUI(WorldInfo info) {
     return 0;
 }
 
-GUIState::~GUIState() {
+GUIStrategy::~GUIStrategy() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 }
 
-unsigned int GUIState::input() {
+unsigned int GUIStrategy::input() {
     int steps = 0;
     SDL_Event keyEvent;
     while(SDL_WaitEvent(&keyEvent)){

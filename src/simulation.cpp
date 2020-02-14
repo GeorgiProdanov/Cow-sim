@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../headers/simulation.hpp"
 #include "../headers/World.hpp"
-Simulation::Simulation(UIState* ui): userInterface(ui){
+Simulation::Simulation(UIStrategy* ui): userInterface(ui){
 }
 
 void Simulation::run() {
@@ -24,11 +24,7 @@ void Simulation::run() {
     }
 }
 
-UIState* Simulation::getUIState() {
-    return this->userInterface;
-}
-
-void Simulation::setUIState(UIState *ui) {
+void Simulation::setUIState(UIStrategy *ui) {
     delete userInterface;
     userInterface = ui;
 }

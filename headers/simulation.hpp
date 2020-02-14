@@ -2,22 +2,19 @@
 #define SIMULATION_SIMULATION_HPP
 
 
-#include "UIState.hpp"
-#include "GUIState.hpp"
+#include "UIStrategy.hpp"
+#include "GUIStrategy.hpp"
 #include "World.hpp"
 
 class Simulation {
 public:
-    Simulation(UIState* ui);
+    Simulation(UIStrategy* ui);
     void run();
-    UIState* getUIState();
-    void setUIState(UIState* ui);
+    void setUIState(UIStrategy* ui);
     void addWorld(World newWorld);
 private:
-    UIState* userInterface;
+    UIStrategy* userInterface;
     std::vector<World> worlds;
-    int CBRI;
-    int LE;
 };
 
 
